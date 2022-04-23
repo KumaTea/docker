@@ -2,14 +2,16 @@
 
 set -e
 
-PACKAGES=${1:-"pip setuptools wheel"}
+PACKAGES=${1:-""}
 PIP_PACKAGES=${2:-""}
 
 source /root/.bashrc > /dev/null
 CONDA_EXE=/opt/conda/bin/conda
 
-echo "Installing conda packages: $PACKAGES"
-$CONDA_EXE install -y $PACKAGES
+if [ -n "$PACKAGES" ]; then
+  echo "Installing conda packages: $PACKAGES"
+  $CONDA_EXE install -y $PACKAGES
+fi
 
 if [ -n "$PIP_PACKAGES" ]; then
   echo "Installing pip packages: $PIP_PACKAGES"
