@@ -9,16 +9,16 @@ PIP_PACKAGES=${3:-""}
 echo "Creating conda env: $ENV_NAME"
 source /root/.bashrc > /dev/null
 CONDA_EXE=/opt/conda/bin/conda
-$CONDA_EXE create -n "$ENV_NAME" python=3.9 "$PACKAGES" -y
+$CONDA_EXE create -n "$ENV_NAME" python=3.9 $PACKAGES -y
 
 if [ -n "$PIP_PACKAGES" ]; then
   echo "Installing pip packages: $PIP_PACKAGES"
   CONDA_TG="/opt/conda/envs/$ENV_NAME/bin/python3"
-  $CONDA_TG -m pip install -U "$PIP_PACKAGES"
+  $CONDA_TG -m pip install -U $PIP_PACKAGES
 fi
 
 echo "Cleanup..."
 $CONDA_EXE clean --all -y
-$CONDA_EXE activate "$ENV_NAME" > /dev/null
+$CONDA_EXE activate "$ENV_NAME" > /dev/null || source activate "$ENV_NAME"  > /dev/null
 $CONDA_EXE clean --all -y
 rm -rf /root/.cache/* || echo "No cache in .cache"
