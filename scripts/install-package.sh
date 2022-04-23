@@ -6,10 +6,13 @@ ENV_NAME=${1:-"bot"}
 PACKAGES=${2:-"pip setuptools wheel"}
 PIP_PACKAGES=${3:-""}
 
-echo "Creating conda env: $ENV_NAME"
+echo "Activating env: $ENV_NAME"
 source /root/.bashrc > /dev/null
 CONDA_EXE=/opt/conda/bin/conda
-$CONDA_EXE create -n "$ENV_NAME" python=3.9 "$PACKAGES" -y
+$CONDA_EXE activate "$ENV_NAME"
+
+echo "Installing conda packages: $PACKAGES"
+$CONDA_EXE install -y "$PACKAGES"
 
 if [ -n "$PIP_PACKAGES" ]; then
   echo "Installing pip packages: $PIP_PACKAGES"
