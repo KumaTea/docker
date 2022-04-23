@@ -16,7 +16,7 @@ source /root/.bashrc > /dev/null
 $CONDA_EXE config --set show_channel_urls false
 
 echo "Setting PyPI mirror..."
-export PYTHON_BIN=/opt/conda/bin/python3
+PYTHON_BIN=/opt/conda/bin/python3
 $PYTHON_BIN -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 echo "Cleanup..."
