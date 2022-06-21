@@ -9,8 +9,8 @@ ENV TZ="Asia/Shanghai"
 # Install base packages
 RUN set -ex && \
     cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    sed -i 's@archive.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's@ports.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
+    # sed -i 's@archive.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
+    # sed -i 's@ports.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
     apt update && \
     apt install -y bash gzip tar tzdata wget && \
     apt clean && \
