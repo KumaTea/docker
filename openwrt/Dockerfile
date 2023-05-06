@@ -9,14 +9,15 @@ ENV TZ="Asia/Shanghai"
 # Configure APT
 RUN set -ex && \
     cp /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    sed -i 's@archive.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's@security.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
-    sed -i 's@ports.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list
+    sed -i 's@archive.ubuntu.com@mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's@security.ubuntu.com@mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's@ports.ubuntu.com@mirrors.ustc.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's@http:@https:@g' /etc/apt/sources.list
 
 # Install base packages
 RUN set -ex && \
     apt update && \
-    apt install -y bash fish gzip locales sudo tar tzdata wget && \
+    apt install -y nano wget curl fish apt-utils dialog sudo locales tzdata ca-certificates && \
     apt clean && \
     rm -rf /root/.cache/* || echo "No cache in .cache" && \
     rm -rf /var/cache/* || echo "No cache in /var" && \
@@ -52,6 +53,15 @@ RUN set -ex && \
     sudo -i -u kuma echo "cd ~" >> /home/kuma/.config/fish/config.fish && \
     mkdir -p /root/.config/fish && \
     ln -s /home/kuma/.config/fish/config.fish /root/.config/fish/config.fish
+
+# Install config packages
+RUN set -ex && \
+    apt update && \
+    apt install -y awk rsync && \
+    apt clean && \
+    rm -rf /root/.cache/* || echo "No cache in .cache" && \
+    rm -rf /var/cache/* || echo "No cache in /var" && \
+    rm -rf /var/lib/apt/lists/* || echo "No apt lists"
 
 # Install build env
 RUN set -ex && \
