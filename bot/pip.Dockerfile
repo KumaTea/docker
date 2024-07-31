@@ -13,18 +13,18 @@ RUN set -ex && \
     # apt update && \
     # apt install -y bash gzip tar wget && \
     # apt clean && \
-    rm -rf /root/.cache/* || echo "No cache in .cache" && \
-    rm -rf /var/cache/* || echo "No cache in /var" && \
-    rm -rf /var/lib/apt/lists/* || echo "No apt lists"
+    (rm -rf /root/.cache/* || echo "No cache in .cache") && \
+    (rm -rf /var/cache/* || echo "No cache in /var") && \
+    (rm -rf /var/lib/apt/lists/* || echo "No apt lists")
 
 # Set timezone
 RUN set -ex && \
     apt update && \
     apt install -y tzdata && \
     apt clean && \
-    rm -rf /root/.cache/* || echo "No cache in .cache" && \
-    rm -rf /var/cache/* || echo "No cache in /var" && \
-    rm -rf /var/lib/apt/lists/* || echo "No apt lists" && \
+    (rm -rf /root/.cache/* || echo "No cache in .cache") && \
+    (rm -rf /var/cache/* || echo "No cache in /var") && \
+    (rm -rf /var/lib/apt/lists/* || echo "No apt lists") && \
     echo "Set timezone: $TZ" && \
     echo $TZ > /etc/timezone && \
     ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && \
@@ -35,9 +35,9 @@ RUN set -ex && \
     apt update && \
     apt install -y locales && \
     apt clean && \
-    rm -rf /root/.cache/* || echo "No cache in .cache" && \
-    rm -rf /var/cache/* || echo "No cache in /var" && \
-    rm -rf /var/lib/apt/lists/* || echo "No apt lists" && \
+    (rm -rf /root/.cache/* || echo "No cache in .cache") && \
+    (rm -rf /var/cache/* || echo "No cache in /var") && \
+    (rm -rf /var/lib/apt/lists/* || echo "No apt lists") && \
     echo "Set locales" && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     echo 'LANG="en_US.UTF-8"'>/etc/default/locale && \
