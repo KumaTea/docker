@@ -1,15 +1,10 @@
-FROM python:alpine
+FROM python:3.14-alpine
 
-# Set apk sources mirror
-# ENV MIRROR="mirrors.ustc.edu.cn"
-
-# Install base packages
-# RUN set -ex && \
-#     sed -i "s/dl-cdn.alpinelinux.org/$MIRROR/g" /etc/apk/repositories && \
-#     apk add --no-cache bash gzip tar wget
+ARG PIP_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple
+ARG PIP_EXTRA_INDEX=https://ext.kmtea.eu/simple
 
 # Set timezone
-ENV TZ="Asia/Shanghai"
+ENV TZ="Asia/Singapore"
 
 RUN set -ex && \
     # apk add --no-cache tzdata && \
@@ -27,8 +22,8 @@ ENV LANG="en_US.UTF-8"
 
 # Set pip
 RUN set -ex && \
-    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
-    pip config set global.extra-index-url https://ext.kmtea.eu/cdn
+    pip config set global.index-url $PIP_INDEX && \
+    pip config set global.extra-index-url $PIP_EXTRA_INDEX
 
 # Set entrypoint
 ENTRYPOINT ["/bin/sh"]
